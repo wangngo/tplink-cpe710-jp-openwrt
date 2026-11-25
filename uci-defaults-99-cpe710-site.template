@@ -1,0 +1,22 @@
+#!/bin/sh
+# First-boot uci-defaults script for remote site LAN deployment:
+# - Keeps the stock Pharos default IP (192.168.0.254/24)
+# - Disables DHCPv4 / RA / DHCPv6 so the CPE never conflicts with an existing LAN router
+# - Configures key-only SSH login on Dropbear
+uci set network.lan.ipaddr='192.168.0.254'
+uci set network.lan.netmask='255.255.255.0'
+uci -q delete network.lan.ip6assign
+uci commit network
+uci set dhcp.lan.ignore='1'
+uci set dhcp.lan.ra='disabled'
+uci set dhcp.lan.dhcpv6='disabled'
+uci set dhcp.lan.ndp='disabled'
+uci commit dhcp
+mkdir -p /etc/dropbear
+echo 'ssh-ed25519 <YOUR_SSH_PUBLIC_KEY> admin@example.com' > /etc/dropbear/authorized_keys
+chmod 600 /etc/dropbear/authorized_keys
+uci set dropbear.@dropbear[0].PasswordAuth='off'
+uci set dropbear.@dropbear[0].RootPasswordAuth='off'
+uci commit dropbear
+sed -i 's|^root:[^:]*:|root:<SHA512_ROOT_PASSWORD_HASH>:|' /etc/shadow
+exit 0

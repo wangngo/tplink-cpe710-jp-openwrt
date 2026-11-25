@@ -1,0 +1,12 @@
+diff --git a/src/tplink-safeloader.c b/src/tplink-safeloader.c
+index b7c73c4..587ccc5 100644
+--- a/src/tplink-safeloader.c
++++ b/src/tplink-safeloader.c
+@@ -678,6 +678,7 @@ static struct device_info boards[] = {
+ 			"CPE710(TP-LINK|UN|AC866-5|00000000):2.0\r\n"
+ 			"CPE710(TP-LINK|EU|AC866-5|45550000):2.0\r\n"
+ 			"CPE710(TP-LINK|US|AC866-5|55530000):2.0\r\n"
++			"CPE710(TP-LINK|JP|AC866-5|4A500000):2.0\r\n"
+ 			"CPE710(TP-LINK|UN|AC866-5):2.0\r\n"
+ 			"CPE710(TP-LINK|EU|AC866-5):2.0\r\n"
+ 			"CPE710(TP-LINK|US|AC866-5):2.0\r\n",
